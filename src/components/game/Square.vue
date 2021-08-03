@@ -22,6 +22,8 @@ export default class Square extends Vue {
 .square {
   border-width: 1px;
   border-style: solid;
+  margin-left: 1px;
+  margin-right: 1px;
   height: 100px;
   width: 100px;
 }

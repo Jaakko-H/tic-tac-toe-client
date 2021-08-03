@@ -26,8 +26,6 @@ export default class Column extends Vue {
 
 <style>
 .column {
-  border-width: 1px;
-  border-style: solid;
   height: 300px;
   text-align: center;
   width: 100px;

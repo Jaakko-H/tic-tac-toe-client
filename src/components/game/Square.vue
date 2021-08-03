@@ -20,11 +20,16 @@ export default class Square extends Vue {
 
 <style scoped>
 .square {
-  border-width: 1px;
-  border-style: solid;
+  align-items: center;
+  display: flex;
+  font-size: 32px;
   margin-left: 1px;
   margin-right: 1px;
   height: 100px;
+  justify-content: center;
+  /* Use outline instead of borders to keep square height and width consistent */
+  outline-width: 1px;
+  outline-style: solid;
   width: 100px;
 }
 </style>

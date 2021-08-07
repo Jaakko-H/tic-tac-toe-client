@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <square v-for="n in size" :key="n"></square>
+    <square v-for="(mark, index) in marks" :key="index"></square>
   </div>
 </template>
 
@@ -10,9 +10,9 @@ import Square from "./Square.vue";
 
 @Options({
   props: {
-    size: {
-      type: Number,
-      default: 3,
+    marks: {
+      type: Array,
+      required: true,
     },
   },
   components: {
@@ -20,7 +20,7 @@ import Square from "./Square.vue";
   },
 })
 export default class Column extends Vue {
-  size?: Number;
+  marks!: Array<String>;
 }
 </script>
 

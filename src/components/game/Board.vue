@@ -1,8 +1,12 @@
 <template>
   <div>
     <h1>Tic-Tac-Toe</h1>
-    <div class="board">
-      <column v-for="n in size" :key="n"></column>
+    <div class="board" v-if="marks">
+      <column
+        v-for="(markColumn, index) in marks"
+        :key="index"
+        :marks="markColumn"
+      ></column>
     </div>
   </div>
 </template>
@@ -23,7 +27,13 @@ import Column from "./Column.vue";
   },
 })
 export default class Board extends Vue {
-  size!: Number;
+  marks!: Array<Array<String>>;
+  // Careful here, size needs to be 'number', not 'Number' to find the correct Array constructor
+  size!: number;
+
+  created(): void {
+    this.marks = new Array(this.size).fill(new Array(this.size));
+  }
 }
 </script>
 

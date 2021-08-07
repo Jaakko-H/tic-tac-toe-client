@@ -1,5 +1,5 @@
 <template>
-  <div class="square">X</div>
+  <div class="square">{{ mark }}</div>
 </template>
 
 <script lang="ts">

@@ -6,6 +6,8 @@
         v-for="(markColumn, index) in marks"
         :key="index"
         :marks="markColumn"
+        :xIndex="index"
+        @squareClick="handleSquareClick"
       ></column>
     </div>
   </div>
@@ -33,6 +35,10 @@ export default class Board extends Vue {
 
   created(): void {
     this.marks = new Array(this.size).fill(new Array(this.size));
+  }
+
+  handleSquareClick(event: Event): void {
+    console.log("event", event);
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="square">{{ mark }}</div>
+  <div class="square" @click="onClickSquare">{{ mark }}</div>
 </template>
 
 <script lang="ts">
@@ -11,10 +11,19 @@ import { Options, Vue } from "vue-class-component";
       type: String,
       default: "",
     },
+    yIndex: {
+      type: Number,
+      required: true,
+    },
   },
 })
 export default class Square extends Vue {
   mark?: String;
+  yIndex!: Number;
+
+  onClickSquare() {
+    this.$emit("squareClick", { y: this.yIndex });
+  }
 }
 </script>
 

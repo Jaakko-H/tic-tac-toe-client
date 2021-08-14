@@ -1,6 +1,11 @@
 <template>
   <div class="column">
-    <square v-for="(mark, index) in marks" :key="index"></square>
+    <square
+      v-for="(mark, index) in marks"
+      :key="index"
+      :yIndex="index"
+      @squareClick="onClickSquare"
+    ></square>
   </div>
 </template>
 
@@ -14,6 +19,10 @@ import Square from "./Square.vue";
       type: Array,
       required: true,
     },
+    xIndex: {
+      type: Number,
+      required: true,
+    },
   },
   components: {
     Square,
@@ -21,6 +30,11 @@ import Square from "./Square.vue";
 })
 export default class Column extends Vue {
   marks!: Array<String>;
+  xIndex!: Number;
+
+  onClickSquare(event: Event) {
+    this.$emit("squareClick", { ...event, x: this.xIndex });
+  }
 }
 </script>
 

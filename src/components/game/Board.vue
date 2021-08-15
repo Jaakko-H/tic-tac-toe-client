@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Tic-Tac-Toe</h1>
-    <div class="board" v-if="state.board">
+    <div class="board" v-if="state.gameState.board">
       <column
-        v-for="(markColumn, index) in state.board"
+        v-for="(markColumn, index) in state.gameState.board"
         :key="index"
         :marks="markColumn"
         :xIndex="index"
@@ -17,8 +17,9 @@
 import { Options, Vue } from "vue-class-component";
 import Column from "./Column.vue";
 import axios from "axios";
-import IClickEvent from "./clickEvent";
+import IClickEvent from "../../model/clickEvent";
 import store from "../../store/store";
+import IGameState from "@/model/gameState";
 
 @Options({
   props: {
@@ -37,15 +38,17 @@ export default class Board extends Vue {
   size!: number;
   state = store.state;
 
-  created(): void {
-    store.setBoardAction(new Array(this.size).fill(new Array(this.size)));
+  async created(): Promise<void> {
+    const url = `${process.env.VUE_APP_GAME_SERVER_BASE_URL}game/new`;
+    const { data } = await axios.post<IGameState>(url);
+    store.setGameStateAction(data);
   }
 
   async handleSquareClick(event: IClickEvent): Promise<void> {
     const url = `${process.env.VUE_APP_GAME_SERVER_BASE_URL}game/place-mark?x=${event.x}&y=${event.y}&mark=${event.mark}`;
     // TODO: Set base url with axiosConfig
-    const result = await axios.patch(url);
-    store.setBoardAction(result.data.board);
+    const { data } = await axios.patch<IGameState>(url);
+    store.setGameStateAction(data);
   }
 }
 </script>

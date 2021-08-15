@@ -1,15 +1,16 @@
+import IGameState from "@/model/gameState";
 import { reactive } from "vue";
 
 export default {
   debug: false,
   state: reactive({
-    board: new Array(),
+    gameState: {},
   }),
 
-  setBoardAction(newBoard: Array<Array<String>>): void {
+  setGameStateAction(newGameState: IGameState): void {
     if (this.debug) {
-      console.log("setBoardAction triggered with value:", newBoard);
+      console.log("setGameStateAction triggered with value:", newGameState);
     }
-    this.state.board = newBoard;
+    this.state.gameState = newGameState;
   }
 };

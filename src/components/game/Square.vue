@@ -21,8 +21,8 @@ export default class Square extends Vue {
   mark?: String;
   yIndex!: Number;
 
-  onClickSquare() {
-    this.$emit("squareClick", { y: this.yIndex });
+  onClickSquare(): void {
+    this.$emit("squareClick", this.yIndex);
   }
 }
 </script>

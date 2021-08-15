@@ -32,8 +32,8 @@ export default class Column extends Vue {
   marks!: Array<String>;
   xIndex!: Number;
 
-  onClickSquare(event: any) {
-    this.$emit("squareClick", { ...event, x: this.xIndex, mark: "X" });
+  onClickSquare(yIndex: Number): void {
+    this.$emit("squareClick", { x: this.xIndex, y: yIndex, mark: "X" });
   }
 }
 </script>

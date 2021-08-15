@@ -16,6 +16,8 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import Column from "./Column.vue";
+import axios from "axios";
+import IClickEvent from "./clickEvent";
 
 @Options({
   props: {
@@ -37,8 +39,11 @@ export default class Board extends Vue {
     this.marks = new Array(this.size).fill(new Array(this.size));
   }
 
-  handleSquareClick(event: Event): void {
-    console.log("event", event);
+  async handleSquareClick(event: IClickEvent): Promise<void> {
+    const url = `${process.env.VUE_APP_GAME_SERVER_BASE_URL}game/place-mark?x=${event.x}&y=${event.y}&mark=${event.mark}`;
+    // TODO: Set base url with axiosConfig
+    const result = await axios.patch(url);
+    console.log("result", result);
   }
 }
 </script>

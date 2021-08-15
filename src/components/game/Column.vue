@@ -4,6 +4,7 @@
       v-for="(mark, index) in marks"
       :key="index"
       :yIndex="index"
+      :mark="mark"
       @squareClick="onClickSquare"
     ></square>
   </div>

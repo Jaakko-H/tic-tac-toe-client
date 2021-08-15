@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Tic-Tac-Toe</h1>
-    <div class="board" v-if="marks">
+    <div class="board" v-if="state.board">
       <column
-        v-for="(markColumn, index) in marks"
+        v-for="(markColumn, index) in state.board"
         :key="index"
         :marks="markColumn"
         :xIndex="index"
@@ -18,6 +18,7 @@ import { Options, Vue } from "vue-class-component";
 import Column from "./Column.vue";
 import axios from "axios";
 import IClickEvent from "./clickEvent";
+import store from "../../store/store";
 
 @Options({
   props: {
@@ -34,16 +35,17 @@ export default class Board extends Vue {
   marks!: Array<Array<String>>;
   // Careful here, size needs to be 'number', not 'Number' to find the correct Array constructor
   size!: number;
+  state = store.state;
 
   created(): void {
-    this.marks = new Array(this.size).fill(new Array(this.size));
+    store.setBoardAction(new Array(this.size).fill(new Array(this.size)));
   }
 
   async handleSquareClick(event: IClickEvent): Promise<void> {
     const url = `${process.env.VUE_APP_GAME_SERVER_BASE_URL}game/place-mark?x=${event.x}&y=${event.y}&mark=${event.mark}`;
     // TODO: Set base url with axiosConfig
     const result = await axios.patch(url);
-    console.log("result", result);
+    store.setBoardAction(result.data.board);
   }
 }
 </script>
